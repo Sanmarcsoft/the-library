@@ -155,6 +155,39 @@ intents:
     items: [agent:builder]
     confidence: medium
 
+  # GitHub Organization Workflow (Dev → Testing → Production)
+  - name: github-org-workflow
+    description: GitHub org workflow with issues, feature branches, project boards, TDD, and gated dev/testing/production pipeline
+    patterns:
+      - feature branch
+      - checkout branch
+      - create branch
+      - start feature
+      - new feature
+      - github issue
+      - create issue
+      - project board
+      - start work
+      - begin work
+      - pick up issue
+      - sprint
+      - milestone
+      - acceptance criteria
+      - deploy to testing
+      - deploy to production
+      - merge to main
+      - pull request
+      - create pr
+      - open pr
+      - dev branch
+      - testing branch
+      - production deploy
+      - gated deploy
+      - CI/CD
+      - pipeline
+    items: [agent:devops-workflow-enforcer, agent:scrum-master, agent:github-project-manager]
+    confidence: high
+
   # Library Routing
   - name: library-routing
     description: Library catalog routing, skill discovery, and intent-to-item matching

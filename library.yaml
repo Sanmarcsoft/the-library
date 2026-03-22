@@ -86,6 +86,21 @@ library:
       requires: [skill:uv, skill:ruff, skill:ty]
       tags: [python, uv, ruff, ty, toolchain, environment]
 
+    - name: devops-workflow-enforcer
+      description: Central DevOps gatekeeper enforcing TDD, GitHub issue tracking, project board compliance, feature branch workflow, and deployment gates across all Sanmarcsoft projects — blocks direct commits to main/testing, requires issues with acceptance criteria, enforces dev/testing/production pipeline
+      source: /config/.claude/agents/devops-workflow-enforcer.md
+      tags: [devops, github, issues, feature-branch, tdd, project-board, gatekeeper, pr, deployment, testing, ci-cd, production, branching]
+
+    - name: scrum-master
+      description: Agile Scrum Master for GitHub project management — scaffolds milestones, creates issues with acceptance criteria, manages labels, generates gh CLI scripts for sprint planning and project board automation
+      source: /config/.claude/agents/scrum-master-agent.md
+      tags: [scrum, agile, sprint, milestone, issues, labels, project-board, planning, github]
+
+    - name: github-project-manager
+      description: Manages GitHub project board column movements and status synchronization — moves issues between Backlog, Ready, In Progress, In Review, and Done columns via GraphQL
+      source: /config/.claude/agents/github-project-manager.md
+      tags: [github, project-board, kanban, status, issues, automation, columns]
+
   prompts:
     - name: plan-w-team
       description: Creates a concise engineering implementation plan based on user requirements and saves it to specs directory
