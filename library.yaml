@@ -1,3 +1,5 @@
+version: "1"
+
 default_dirs:
   skills:
     - default: .claude/skills/
@@ -10,6 +12,94 @@ default_dirs:
     - global: ~/.claude/commands/
 
 library:
-  skills: []
-  agents: []
-  prompts: []
+  skills:
+    - name: bowser
+      description: Headless browser automation using Playwright CLI
+      source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/skills/bowser.md
+      tags: [browser, playwright, automation, scraping, headless]
+
+    - name: prime-agent
+      description: Intelligent library routing that detects when catalog skills, agents, or prompts would help the current task, auto-installs with confidence tiers, and tracks improvement opportunities
+      source: https://github.com/smsmatt/the-library/blob/main/skills/prime-agent/SKILL.md
+      tags: [routing, discovery, library, meta, automation, intent-matching]
+
+    - name: ruff
+      description: Guide for using ruff, the extremely fast Python linter and formatter
+      source: https://github.com/disler/idd-library-engineering/blob/main/.claude/skills/ruff/SKILL.md
+      tags: [python, linter, formatter, ruff, code-quality]
+
+    - name: ty
+      description: Guide for using ty, the extremely fast Python type checker and language server
+      source: https://github.com/disler/idd-library-engineering/blob/main/.claude/skills/ty/SKILL.md
+      tags: [python, type-checker, ty, types, language-server]
+
+    - name: uv
+      description: Guide for using uv, the Python package and project manager
+      source: https://github.com/disler/idd-library-engineering/blob/main/.claude/skills/uv/SKILL.md
+      tags: [python, package-manager, uv, virtualenv, pip-replacement]
+
+  agents:
+    - name: bowser
+      description: Headless browser automation agent using Playwright CLI for browsing, UI testing, and scraping
+      source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/bowser.md
+      requires: [skill:bowser]
+      tags: [browser, playwright, automation, scraping, testing]
+
+    - name: builder
+      description: Implementation and code generation
+      source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/builder.md
+      tags: [implementation, code-generation, building, scaffold]
+
+    - name: documenter
+      description: Documentation and README generation
+      source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/documenter.md
+      tags: [documentation, readme, docs, writing]
+
+    - name: plan-reviewer
+      description: Plan critic - reviews, challenges, and validates implementation plans
+      source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/plan-reviewer.md
+      tags: [planning, review, validation, architecture]
+
+    - name: planner
+      description: Architecture and implementation planning
+      source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/planner.md
+      tags: [planning, architecture, design, implementation]
+
+    - name: red-team
+      description: Security and adversarial testing
+      source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/red-team.md
+      tags: [security, adversarial, testing, pentest, red-team]
+
+    - name: reviewer
+      description: Code review and quality checks
+      source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/reviewer.md
+      tags: [code-review, quality, review, best-practices]
+
+    - name: scout
+      description: Fast recon and codebase exploration
+      source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/scout.md
+      tags: [exploration, recon, codebase, search, discovery]
+
+    - name: uv-agent
+      description: Python environment and toolchain agent using the Astral stack (uv, ruff, ty)
+      source: https://github.com/disler/idd-library-engineering/blob/main/.claude/agents/uv-agent.md
+      requires: [skill:uv, skill:ruff, skill:ty]
+      tags: [python, uv, ruff, ty, toolchain, environment]
+
+  prompts:
+    - name: plan-w-team
+      description: Creates a concise engineering implementation plan based on user requirements and saves it to specs directory
+      source: https://github.com/disler/idd-library-engineering/blob/main/.claude/commands/plan_w_team.md
+      tags: [planning, implementation, team, requirements, specs]
+
+    - name: prime-agent-improvement-tracker
+      description: Subagent prompt for analyzing library item usage and generating improvement reports
+      source: https://github.com/smsmatt/the-library/blob/main/skills/prime-agent/improvement-tracker-prompt.md
+      requires: [skill:prime-agent]
+      tags: [meta, improvement, tracking, library, prime-agent]
+
+    - name: prime-agent-library-improver
+      description: Subagent prompt for generating and applying patches to library items from improvement reports
+      source: https://github.com/smsmatt/the-library/blob/main/skills/prime-agent/library-improver-prompt.md
+      requires: [skill:prime-agent, prompt:prime-agent-improvement-tracker]
+      tags: [meta, improvement, patching, library, prime-agent]

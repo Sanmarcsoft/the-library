@@ -23,7 +23,8 @@ git pull
 - Match the keyword (case-insensitive) against:
   - Entry `name`
   - Entry `description`
-- A match is any entry where the keyword appears as a substring in either field
+  - Entry `tags` array (match if keyword appears as substring of any tag)
+- A match is any entry where the keyword appears as a substring in any of these fields
 - Collect all matches across all types
 
 ### 4. Display Results

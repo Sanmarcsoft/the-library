@@ -1,0 +1,191 @@
+# Intent Map for Library Prime Agent
+# Maps task patterns to library catalog items with confidence levels
+# Confidence: high = auto-install + announce, medium = recommend + wait, low = suggest search
+version: "1"
+
+intents:
+  # Python Development Ecosystem
+  - name: python-tooling
+    description: Python project setup, package management, virtual environments
+    patterns:
+      - python
+      - pip
+      - venv
+      - virtualenv
+      - pyproject
+      - setup.py
+      - requirements.txt
+      - poetry
+      - conda
+      - fastapi
+      - pydantic
+      - django
+      - flask
+      - pytest
+      - httpx
+      - sqlalchemy
+    items: [skill:uv, skill:ruff, skill:ty, agent:uv-agent]
+    confidence: high
+
+  - name: python-linting
+    description: Python code quality, formatting, linting
+    patterns:
+      - lint
+      - format
+      - style
+      - pep8
+      - flake8
+      - black
+      - isort
+      - autopep8
+      - ruff
+    items: [skill:ruff]
+    confidence: high
+
+  - name: python-typing
+    description: Python type checking, type annotations, type safety
+    patterns:
+      - type check
+      - mypy
+      - pyright
+      - type annotation
+      - typing
+      - type hint
+      - type error
+    items: [skill:ty]
+    confidence: high
+
+  # Browser & Web Automation
+  - name: browser-automation
+    description: Browser control, web scraping, UI testing with headless browsers
+    patterns:
+      - browser
+      - scrape
+      - playwright
+      - headless
+      - crawl
+      - selenium
+      - puppeteer
+      - web scraping
+      - UI test
+      - e2e test
+      - end-to-end
+    items: [skill:bowser, agent:bowser]
+    confidence: high
+
+  # Security
+  - name: security-testing
+    description: Security auditing, adversarial testing, penetration testing
+    patterns:
+      - security audit
+      - security review
+      - security scan
+      - penetration test
+      - attack surface
+      - pentest
+      - adversarial
+      - vulnerability
+      - exploit
+      - red team
+      - threat model
+      - OWASP
+    items: [agent:red-team]
+    confidence: high
+
+  # Code Quality
+  - name: code-review
+    description: Code review, quality checks, best practices validation
+    patterns:
+      - code review
+      - review code
+      - quality check
+      - best practice
+      - code smell
+      - refactor review
+      - PR review
+    items: [agent:reviewer]
+    confidence: high
+
+  # Planning & Architecture
+  - name: planning
+    description: Project planning, architecture design, implementation strategy
+    patterns:
+      - plan
+      - architecture
+      - design system
+      - implementation plan
+      - technical spec
+      - roadmap
+    items: [agent:planner, agent:plan-reviewer, prompt:plan-w-team]
+    confidence: medium
+
+  # Documentation
+  - name: documentation
+    description: Documentation generation, README writing, API docs
+    patterns:
+      - documentation
+      - readme
+      - docs
+      - API docs
+      - docstring
+      - changelog
+      - technical writing
+      - document this
+      - add comments
+      - write comments
+    items: [agent:documenter]
+    confidence: medium
+
+  # Implementation
+  - name: implementation
+    description: Code generation, feature building, scaffolding
+    patterns:
+      - implement
+      - build feature
+      - scaffold
+      - code gen
+      - generate code
+      - boilerplate
+      - write a
+      - create a
+      - add an endpoint
+      - build a cli
+      - new feature
+      - add feature
+    items: [agent:builder]
+    confidence: medium
+
+  # Library Routing
+  - name: library-routing
+    description: Library catalog routing, skill discovery, and intent-to-item matching
+    patterns:
+      - route task
+      - library catalog
+      - check catalog
+      - find skill
+      - prime-agent
+      - what skill
+      - which agent
+      - which skill
+      - available tools
+    items: [skill:prime-agent]
+    confidence: high
+
+  # Exploration
+  - name: codebase-exploration
+    description: Codebase recon, understanding unfamiliar code, exploration
+    patterns:
+      - explore
+      - recon
+      - understand codebase
+      - unfamiliar code
+      - what does this do
+      - codebase overview
+      - how does
+      - walk me through
+      - explain this
+      - trace the
+      - where is
+      - find where
+    items: [agent:scout]
+    confidence: medium

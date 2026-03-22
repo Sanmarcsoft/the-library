@@ -8,18 +8,25 @@ The user provides a skill name or description.
 
 ## Steps
 
-### 1. Find the Entry
+### 1. Sync the Library Repo
+Pull the latest catalog before reading:
+```bash
+cd <LIBRARY_SKILL_DIR>
+git pull
+```
+
+### 2. Find the Entry
 - Read `library.yaml`
 - Search across all sections for the matching entry
 - If no match, tell the user the item wasn't found in the catalog
 
-### 2. Locate the Local Copy
+### 3. Locate the Local Copy
 - Check the default directory for the type (from `default_dirs`)
 - Check the global directory
 - If found in multiple places, ask which one to push
 - If not found locally, tell the user there's nothing to push
 
-### 3. Check for Conflicts
+### 4. Check for Conflicts
 
 **If source is a local path:**
 - Compare the local installed copy with the source
@@ -36,7 +43,7 @@ The user provides a skill name or description.
 - If they differ AND the remote has changes not in the local copy, warn about conflict
 - Ask the user to resolve before continuing
 
-### 4. Push to Source
+### 5. Push to Source
 
 **If source is a local path:**
 - Copy the entire local directory to the source location, overwriting:
@@ -77,7 +84,7 @@ The user provides a skill name or description.
   rm -rf "$tmp_dir"
   ```
 
-### 5. Confirm
+### 6. Confirm
 Tell the user:
 - What was pushed and where
 - The commit message used
