@@ -33,6 +33,56 @@ library:
       source: https://github.com/disler/idd-library-engineering/blob/main/.claude/skills/ty/SKILL.md
       tags: [python, type-checker, ty, types, language-server]
 
+    - name: frontend-design
+      description: Impeccable design vocabulary — comprehensive frontend design skill with typography, color theory, spatial design, motion, interaction patterns, responsive design, and UX writing references. Anti-AI-slop patterns that avoid generic aesthetics.
+      source: /config/workspace/projects/impeccable/.claude/skills/frontend-design/SKILL.md
+      tags: [design, frontend, css, ui, ux, typography, color, layout, responsive, animation, accessibility, tailwind, html, components, web]
+
+    - name: design-audit
+      description: Impeccable design audit — comprehensive quality scan covering accessibility, performance, theming, responsive behavior, and visual hierarchy with severity ratings
+      source: /config/workspace/projects/impeccable/.claude/skills/audit/SKILL.md
+      tags: [design, audit, accessibility, a11y, performance, quality, review, wcag]
+
+    - name: design-critique
+      description: Impeccable design critique — UX design review examining hierarchy, clarity, emotional resonance, and user experience quality
+      source: /config/workspace/projects/impeccable/.claude/skills/critique/SKILL.md
+      tags: [design, critique, ux, review, feedback, hierarchy, clarity]
+
+    - name: design-polish
+      description: Impeccable design polish — meticulous final pass for alignment, spacing, consistency, and pixel-perfect refinement
+      source: /config/workspace/projects/impeccable/.claude/skills/polish/SKILL.md
+      tags: [design, polish, alignment, spacing, consistency, refinement, pixel-perfect]
+
+    - name: design-animate
+      description: Impeccable motion design — add purposeful animation with proper easing curves, staggering, reduced motion support, and performance-safe transitions
+      source: /config/workspace/projects/impeccable/.claude/skills/animate/SKILL.md
+      tags: [design, animation, motion, transitions, easing, css-animation, performance]
+
+    - name: design-colorize
+      description: Impeccable color system — introduce strategic color using OKLCH color spaces, tinted neutrals, accessible contrast ratios, and intentional palette design
+      source: /config/workspace/projects/impeccable/.claude/skills/colorize/SKILL.md
+      tags: [design, color, palette, oklch, contrast, accessibility, theming, dark-mode]
+
+    - name: design-harden
+      description: Impeccable hardening — add error handling, i18n support, edge case protection, and resilience to frontend components
+      source: /config/workspace/projects/impeccable/.claude/skills/harden/SKILL.md
+      tags: [design, hardening, error-handling, i18n, edge-cases, resilience, forms]
+
+    - name: design-optimize
+      description: Impeccable optimization — frontend performance improvements for loading, rendering, bundle size, and Core Web Vitals
+      source: /config/workspace/projects/impeccable/.claude/skills/optimize/SKILL.md
+      tags: [design, performance, optimization, web-vitals, loading, bundle-size, lighthouse]
+
+    - name: design-extract
+      description: Impeccable component extraction — pull UI patterns into reusable, well-documented components with proper interfaces
+      source: /config/workspace/projects/impeccable/.claude/skills/extract/SKILL.md
+      tags: [design, components, extraction, reusable, refactoring, abstraction]
+
+    - name: design-adapt
+      description: Impeccable responsive adaptation — adapt designs for different devices using mobile-first, container queries, and fluid design patterns
+      source: /config/workspace/projects/impeccable/.claude/skills/adapt/SKILL.md
+      tags: [design, responsive, mobile, tablet, desktop, container-queries, fluid, breakpoints]
+
     - name: mcp2cli-first
       description: Enforces mcp2cli with --toon as the primary MCP access method for 96-99% token savings — applies to all MCP server interactions including Wolfram, Moneypenny, and external APIs
       source: https://github.com/smsmatt/the-library/blob/main/skills/mcp2cli-first/SKILL.md

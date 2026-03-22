@@ -4,6 +4,88 @@
 version: "1"
 
 intents:
+  # Frontend Design (Impeccable)
+  - name: frontend-design
+    description: Frontend design, UI/UX, styling, CSS, components, layouts, and visual design
+    patterns:
+      - design
+      - ui design
+      - ux design
+      - frontend
+      - css
+      - styling
+      - layout
+      - component
+      - web page
+      - landing page
+      - dashboard
+      - form design
+      - button
+      - modal
+      - sidebar
+      - navigation
+      - header
+      - footer
+      - card
+      - hero section
+      - tailwind
+      - responsive
+      - mobile-first
+      - dark mode
+      - theme
+      - color scheme
+      - typography
+      - font
+      - spacing
+      - animation
+      - transition
+      - hover effect
+      - accessibility
+      - a11y
+      - wcag
+      - visual hierarchy
+      - pixel perfect
+      - polish
+      - audit design
+      - critique design
+      - make it look
+      - looks ugly
+      - looks bad
+      - looks generic
+      - ai slop
+      - too generic
+      - boring design
+      - needs polish
+    items: [skill:frontend-design, skill:design-audit, skill:design-critique, skill:design-polish]
+    confidence: high
+
+  - name: design-operations
+    description: Specific design operations — animation, color, hardening, optimization, extraction, adaptation
+    patterns:
+      - add animation
+      - animate this
+      - add motion
+      - easing
+      - add color
+      - color palette
+      - colorize
+      - harden
+      - error states
+      - edge cases
+      - i18n
+      - internationalization
+      - optimize performance
+      - core web vitals
+      - lighthouse
+      - extract component
+      - make reusable
+      - refactor component
+      - adapt for mobile
+      - responsive breakpoints
+      - container query
+    items: [skill:design-animate, skill:design-colorize, skill:design-harden, skill:design-optimize, skill:design-extract, skill:design-adapt]
+    confidence: high
+
   # MCP Access (Token Efficiency)
   - name: mcp-access
     description: Any MCP server interaction — enforces mcp2cli --toon for token efficiency
