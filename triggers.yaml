@@ -4,6 +4,31 @@
 version: "1"
 
 intents:
+  # MCP Access (Token Efficiency)
+  - name: mcp-access
+    description: Any MCP server interaction — enforces mcp2cli --toon for token efficiency
+    patterns:
+      - mcp server
+      - mcp tool
+      - wolfram alpha
+      - wolfram language
+      - moneypenny
+      - portfolio query
+      - portfolio summary
+      - portfolio brief
+      - matrix notify
+      - matrix message
+      - github issues api
+      - email check
+      - calendar check
+      - chromadb
+      - external api
+      - api call
+      - api endpoint
+      - mcp2cli
+    items: [skill:mcp2cli-first]
+    confidence: high
+
   # Mathematics & Computation
   - name: math-computation
     description: Mathematics, calculations, statistics, data analysis, plotting, scientific queries, financial modeling

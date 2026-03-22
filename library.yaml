@@ -33,6 +33,11 @@ library:
       source: https://github.com/disler/idd-library-engineering/blob/main/.claude/skills/ty/SKILL.md
       tags: [python, type-checker, ty, types, language-server]
 
+    - name: mcp2cli-first
+      description: Enforces mcp2cli with --toon as the primary MCP access method for 96-99% token savings — applies to all MCP server interactions including Wolfram, Moneypenny, and external APIs
+      source: https://github.com/smsmatt/the-library/blob/main/skills/mcp2cli-first/SKILL.md
+      tags: [mcp, mcp2cli, token-efficiency, wolfram, moneypenny, api, optimization]
+
     - name: wolfram
       description: Use Wolfram Alpha and Wolfram Language for mathematics, computation, data analysis, plotting, unit conversions, scientific calculations, statistics, financial modeling, and real-time data lookups via MCP tools
       source: https://github.com/smsmatt/the-library/blob/main/skills/wolfram/SKILL.md

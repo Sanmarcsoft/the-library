@@ -131,6 +131,22 @@ After installation:
 - **Agents**: Dispatch as a subagent with the agent's AGENT.md as instructions
 - **Prompts**: Load the prompt content and apply it to the current task
 
+### MCP Access Rule: mcp2cli First, Always
+
+**When any library item or agent needs to call an MCP server, use `mcp2cli --toon` as the primary access method.** This applies universally — Wolfram, Moneypenny, any MCP endpoint.
+
+```bash
+# Token-efficient MCP access (PREFERRED — 96-99% token savings)
+mcp2cli --mcp <server> --toon <tool-name> --input '{"param": "value"}'
+
+# Raw MCP tool call (FALLBACK ONLY — if mcp2cli unavailable or fails)
+mcp__server__tool_name(param: "value")
+```
+
+**Why:** Raw MCP tool calls consume 2,000-5,000 tokens per invocation (schema + full JSON). `mcp2cli --toon` compresses output to 50-200 tokens. Over a session, this saves tens of thousands of tokens — context window preserved for actual work.
+
+**This is not optional.** If an MCP server is available via mcp2cli, use mcp2cli. Only fall back to raw MCP tool calls if mcp2cli is genuinely unavailable.
+
 ### Step 6: Improvement Tracking
 
 After routing to a library item, enter tracking mode. Monitor for:
