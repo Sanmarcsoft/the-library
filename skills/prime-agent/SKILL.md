@@ -10,8 +10,9 @@ Intelligent routing layer between your tasks and the library catalog. Detects wh
 ## Iron Law
 
 **NO TASK BEGINS WITHOUT CHECKING THE LIBRARY CATALOG FIRST.**
+**NO COMPUTATION, ESTIMATION, OR ANALYSIS WITHOUT CHECKING IF A LIBRARY ITEM HANDLES IT.**
 
-If a library item could help — even tangentially — it MUST be surfaced. Silent omission of relevant library items is a routing failure.
+If a library item could help — even tangentially — it MUST be surfaced. Silent omission of relevant library items is a routing failure. This applies equally to the user's requests AND the agent's own intermediate work. If YOU are about to calculate, estimate, predict, assess, review, or build something that matches a trigger pattern — you MUST route to the library item instead of doing it yourself.
 
 ### No Exceptions
 
@@ -67,22 +68,40 @@ digraph prime_agent {
 
 ## How It Works
 
-### Step 1: Catalog Awareness
+### Step 1: Catalog Awareness (Continuous, Not One-Shot)
 
-At task start, read two files from the library directory (`~/.claude/skills/library/`):
+Read two files from the library directory (`~/.claude/skills/library/`):
 
 1. **`library.yaml`** — the full catalog of available skills, agents, and prompts with their `tags` fields
 2. **`triggers.yaml`** — curated intent-to-item mapping with confidence levels
 
 If either file is missing, fall back to the other. If both are missing, inform the user and suggest `/library install`.
 
+**Routing is not a one-time check at task start.** It is continuous. Every time the agent:
+- Generates a plan or spec
+- Writes code that touches a new domain
+- Starts reasoning about numbers, security, deployment, or architecture
+- Produces intermediate output that contains trigger keywords
+
+...re-evaluate against the trigger patterns. The agent's own output is a first-class trigger source, identical to user input. If you write "let me calculate the expected revenue" in your reasoning, the word "calculate" and "revenue" match `math-computation` — stop and route to the Wolfram skill.
+
 ### Step 2: Intent Matching (Three-Layer)
 
+**CRITICAL: Matching applies to ALL task context, not just user input.**
+
+Scan against triggers.yaml patterns using ALL of:
+- The user's original task description
+- Your own reasoning, plans, and intermediate steps
+- Generated content (specs, code comments, architecture decisions)
+- Subagent outputs and tool results
+
+**If YOU are about to do something that matches a trigger, STOP and route to the library item.** For example: if you're about to estimate costs in your head, the word "estimate cost" matches `math-computation` — route to Wolfram instead of mental-math. If you're about to write a test, check if a testing skill exists. The agent's own actions are first-class trigger sources.
+
 **Layer 1 — Intent Map (highest priority):**
-Scan the user's task description against `triggers.yaml` patterns. Each intent has a list of keyword patterns. Match is case-insensitive substring. If ANY pattern matches, the intent fires and returns its items + confidence level.
+Scan ALL task context (user input + agent reasoning + intermediate work) against `triggers.yaml` patterns. Each intent has a list of keyword patterns. Match is case-insensitive substring. If ANY pattern matches, the intent fires and returns its items + confidence level.
 
 **Layer 2 — Catalog Tags:**
-If no intent map match, scan catalog entry `tags` arrays for keyword overlap with the task. A tag match produces `medium` confidence.
+If no intent map match, scan catalog entry `tags` arrays for keyword overlap with the full task context. A tag match produces `medium` confidence.
 
 **Layer 3 — Description Keywords:**
 If no tag match, do substring search against catalog entry `description` fields. A description match produces `low` confidence (suggest, don't auto-install).
@@ -141,6 +160,10 @@ If the tracker identifies actionable improvements, dispatch the **library-improv
 | "The user didn't ask for library items" | The user installed prime-agent because they WANT proactive routing. |
 | "I'll check the library later" | Later never comes. Check NOW, at task start. |
 | "This is a library management task, not a routing task" | If the user said `/library <command>`, use the library skill directly. Prime-agent routes to library items, not library commands. |
+| "I can handle this myself" | If a trigger pattern matches your own reasoning, route to the library item. Your own words are trigger sources. |
+| "It's just intermediate work" | Intermediate work with wrong tools produces wrong final answers. Route. |
+| "I'm already mid-task, I'll use it next time" | Stop. Route now. Resuming after routing is better than finishing wrong. |
+| "My output doesn't match any triggers" | Re-read your last paragraph. If you wrote "calculate", "estimate", "review code", "deploy", "create branch" — those ARE triggers. Act on them. |
 
 ## Integration with Superpowers
 
