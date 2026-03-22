@@ -4,6 +4,97 @@
 version: "1"
 
 intents:
+  # Mathematics & Computation
+  - name: math-computation
+    description: Mathematics, calculations, statistics, data analysis, plotting, scientific queries, financial modeling
+    patterns:
+      - calculate
+      - equation
+      - formula
+      - derivative
+      - integral
+      - statistics
+      - statistical
+      - standard deviation
+      - mean
+      - median
+      - regression
+      - probability
+      - compound interest
+      - convert units
+      - conversion
+      - plot
+      - graph
+      - chart data
+      - solve for
+      - how many
+      - what is the
+      - percent
+      - percentage
+      - ratio
+      - proportion
+      - factorial
+      - logarithm
+      - exponent
+      - trigonometry
+      - sin cos tan
+      - matrix
+      - linear algebra
+      - financial model
+      - roi
+      - revenue calculation
+      - pricing math
+      - cost per
+      - break even
+      - wolfram
+      - predict
+      - prediction
+      - forecast
+      - trending
+      - growth rate
+      - churn rate
+      - retention
+      - cohort analysis
+      - monte carlo
+      - simulation
+      - confidence interval
+      - p-value
+      - hypothesis test
+      - a/b test
+      - significance
+      - correlation
+      - variance
+      - distribution
+      - normal distribution
+      - bayesian
+      - time series
+      - moving average
+      - benchmark
+      - numerical
+      - quantify
+      - estimate cost
+      - estimate revenue
+      - how much
+      - how often
+      - what percentage
+      - likelihood
+      - risk assessment
+      - scoring model
+      - weighted average
+      - index
+      - rate of
+      - margin
+      - profit margin
+      - unit economics
+      - LTV
+      - CAC
+      - MRR
+      - ARR
+      - runway
+      - burn rate
+    items: [skill:wolfram]
+    confidence: high
+
   # Python Development Ecosystem
   - name: python-tooling
     description: Python project setup, package management, virtual environments

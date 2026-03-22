@@ -33,6 +33,11 @@ library:
       source: https://github.com/disler/idd-library-engineering/blob/main/.claude/skills/ty/SKILL.md
       tags: [python, type-checker, ty, types, language-server]
 
+    - name: wolfram
+      description: Use Wolfram Alpha and Wolfram Language for mathematics, computation, data analysis, plotting, unit conversions, scientific calculations, statistics, financial modeling, and real-time data lookups via MCP tools
+      source: https://github.com/smsmatt/the-library/blob/main/skills/wolfram/SKILL.md
+      tags: [math, computation, wolfram, statistics, plotting, science, calculation, conversion, finance, data-analysis, algebra, calculus]
+
     - name: uv
       description: Guide for using uv, the Python package and project manager
       source: https://github.com/disler/idd-library-engineering/blob/main/.claude/skills/uv/SKILL.md
