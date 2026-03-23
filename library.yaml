@@ -1,4 +1,15 @@
-version: "1"
+version: "2"
+
+# Trust Policy: Only Sanmarcsoft org repos are trusted sources.
+# Items from external repos are marked untrusted and must be forked
+# into the Sanmarcsoft org before production use.
+trusted_orgs:
+  - Sanmarcsoft
+  - smsmatt
+  - disler
+
+# Local workspace root for auto-clone resolution
+local_workspace: /config/workspace/projects/sanmarcsoft
 
 default_dirs:
   skills:
@@ -13,168 +24,236 @@ default_dirs:
 
 library:
   skills:
+    # --- External (trusted: disler) ---
     - name: bowser
       description: Headless browser automation using Playwright CLI
       source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/skills/bowser.md
+      trusted: true
       tags: [browser, playwright, automation, scraping, headless]
 
+    # --- Sanmarcsoft: the-library repo ---
     - name: prime-agent
       description: Intelligent library routing that detects when catalog skills, agents, or prompts would help the current task, auto-installs with confidence tiers, and tracks improvement opportunities
-      source: https://github.com/smsmatt/the-library/blob/main/skills/prime-agent/SKILL.md
+      source: https://github.com/Sanmarcsoft/the-library/blob/main/skills/prime-agent/SKILL.md
+      local: /config/.claude/skills/library/skills/prime-agent/SKILL.md
+      trusted: true
       tags: [routing, discovery, library, meta, automation, intent-matching]
 
+    # --- External (trusted: disler) ---
     - name: ruff
       description: Guide for using ruff, the extremely fast Python linter and formatter
       source: https://github.com/disler/idd-library-engineering/blob/main/.claude/skills/ruff/SKILL.md
+      trusted: true
       tags: [python, linter, formatter, ruff, code-quality]
 
+    # --- External (trusted: disler) ---
     - name: ty
       description: Guide for using ty, the extremely fast Python type checker and language server
       source: https://github.com/disler/idd-library-engineering/blob/main/.claude/skills/ty/SKILL.md
+      trusted: true
       tags: [python, type-checker, ty, types, language-server]
 
+    # --- Sanmarcsoft: impeccable repo ---
     - name: frontend-design
       description: Impeccable design vocabulary — comprehensive frontend design skill with typography, color theory, spatial design, motion, interaction patterns, responsive design, and UX writing references. Anti-AI-slop patterns that avoid generic aesthetics.
-      source: /config/workspace/projects/impeccable/.claude/skills/frontend-design/SKILL.md
+      source: https://github.com/Sanmarcsoft/impeccable/blob/main/.claude/skills/frontend-design/SKILL.md
+      local: /config/workspace/projects/sanmarcsoft/impeccable/.claude/skills/frontend-design/SKILL.md
+      trusted: true
       tags: [design, frontend, css, ui, ux, typography, color, layout, responsive, animation, accessibility, tailwind, html, components, web]
 
     - name: design-audit
       description: Impeccable design audit — comprehensive quality scan covering accessibility, performance, theming, responsive behavior, and visual hierarchy with severity ratings
-      source: /config/workspace/projects/impeccable/.claude/skills/audit/SKILL.md
+      source: https://github.com/Sanmarcsoft/impeccable/blob/main/.claude/skills/audit/SKILL.md
+      local: /config/workspace/projects/sanmarcsoft/impeccable/.claude/skills/audit/SKILL.md
+      trusted: true
       tags: [design, audit, accessibility, a11y, performance, quality, review, wcag]
 
     - name: design-critique
       description: Impeccable design critique — UX design review examining hierarchy, clarity, emotional resonance, and user experience quality
-      source: /config/workspace/projects/impeccable/.claude/skills/critique/SKILL.md
+      source: https://github.com/Sanmarcsoft/impeccable/blob/main/.claude/skills/critique/SKILL.md
+      local: /config/workspace/projects/sanmarcsoft/impeccable/.claude/skills/critique/SKILL.md
+      trusted: true
       tags: [design, critique, ux, review, feedback, hierarchy, clarity]
 
     - name: design-polish
       description: Impeccable design polish — meticulous final pass for alignment, spacing, consistency, and pixel-perfect refinement
-      source: /config/workspace/projects/impeccable/.claude/skills/polish/SKILL.md
+      source: https://github.com/Sanmarcsoft/impeccable/blob/main/.claude/skills/polish/SKILL.md
+      local: /config/workspace/projects/sanmarcsoft/impeccable/.claude/skills/polish/SKILL.md
+      trusted: true
       tags: [design, polish, alignment, spacing, consistency, refinement, pixel-perfect]
 
     - name: design-animate
       description: Impeccable motion design — add purposeful animation with proper easing curves, staggering, reduced motion support, and performance-safe transitions
-      source: /config/workspace/projects/impeccable/.claude/skills/animate/SKILL.md
+      source: https://github.com/Sanmarcsoft/impeccable/blob/main/.claude/skills/animate/SKILL.md
+      local: /config/workspace/projects/sanmarcsoft/impeccable/.claude/skills/animate/SKILL.md
+      trusted: true
       tags: [design, animation, motion, transitions, easing, css-animation, performance]
 
     - name: design-colorize
       description: Impeccable color system — introduce strategic color using OKLCH color spaces, tinted neutrals, accessible contrast ratios, and intentional palette design
-      source: /config/workspace/projects/impeccable/.claude/skills/colorize/SKILL.md
+      source: https://github.com/Sanmarcsoft/impeccable/blob/main/.claude/skills/colorize/SKILL.md
+      local: /config/workspace/projects/sanmarcsoft/impeccable/.claude/skills/colorize/SKILL.md
+      trusted: true
       tags: [design, color, palette, oklch, contrast, accessibility, theming, dark-mode]
 
     - name: design-harden
       description: Impeccable hardening — add error handling, i18n support, edge case protection, and resilience to frontend components
-      source: /config/workspace/projects/impeccable/.claude/skills/harden/SKILL.md
+      source: https://github.com/Sanmarcsoft/impeccable/blob/main/.claude/skills/harden/SKILL.md
+      local: /config/workspace/projects/sanmarcsoft/impeccable/.claude/skills/harden/SKILL.md
+      trusted: true
       tags: [design, hardening, error-handling, i18n, edge-cases, resilience, forms]
 
     - name: design-optimize
       description: Impeccable optimization — frontend performance improvements for loading, rendering, bundle size, and Core Web Vitals
-      source: /config/workspace/projects/impeccable/.claude/skills/optimize/SKILL.md
+      source: https://github.com/Sanmarcsoft/impeccable/blob/main/.claude/skills/optimize/SKILL.md
+      local: /config/workspace/projects/sanmarcsoft/impeccable/.claude/skills/optimize/SKILL.md
+      trusted: true
       tags: [design, performance, optimization, web-vitals, loading, bundle-size, lighthouse]
 
     - name: design-extract
       description: Impeccable component extraction — pull UI patterns into reusable, well-documented components with proper interfaces
-      source: /config/workspace/projects/impeccable/.claude/skills/extract/SKILL.md
+      source: https://github.com/Sanmarcsoft/impeccable/blob/main/.claude/skills/extract/SKILL.md
+      local: /config/workspace/projects/sanmarcsoft/impeccable/.claude/skills/extract/SKILL.md
+      trusted: true
       tags: [design, components, extraction, reusable, refactoring, abstraction]
 
     - name: design-adapt
       description: Impeccable responsive adaptation — adapt designs for different devices using mobile-first, container queries, and fluid design patterns
-      source: /config/workspace/projects/impeccable/.claude/skills/adapt/SKILL.md
+      source: https://github.com/Sanmarcsoft/impeccable/blob/main/.claude/skills/adapt/SKILL.md
+      local: /config/workspace/projects/sanmarcsoft/impeccable/.claude/skills/adapt/SKILL.md
+      trusted: true
       tags: [design, responsive, mobile, tablet, desktop, container-queries, fluid, breakpoints]
 
+    # --- Sanmarcsoft: the-library repo ---
     - name: mcp2cli-first
       description: Enforces mcp2cli with --toon as the primary MCP access method for 96-99% token savings — applies to all MCP server interactions including Wolfram, Moneypenny, and external APIs
-      source: https://github.com/smsmatt/the-library/blob/main/skills/mcp2cli-first/SKILL.md
+      source: https://github.com/Sanmarcsoft/the-library/blob/main/skills/mcp2cli-first/SKILL.md
+      local: /config/.claude/skills/library/skills/mcp2cli-first/SKILL.md
+      trusted: true
       tags: [mcp, mcp2cli, token-efficiency, wolfram, moneypenny, api, optimization]
 
     - name: wolfram
       description: Use Wolfram Alpha and Wolfram Language for mathematics, computation, data analysis, plotting, unit conversions, scientific calculations, statistics, financial modeling, and real-time data lookups via MCP tools
-      source: https://github.com/smsmatt/the-library/blob/main/skills/wolfram/SKILL.md
+      source: https://github.com/Sanmarcsoft/the-library/blob/main/skills/wolfram/SKILL.md
+      local: /config/.claude/skills/library/skills/wolfram/SKILL.md
+      trusted: true
       tags: [math, computation, wolfram, statistics, plotting, science, calculation, conversion, finance, data-analysis, algebra, calculus]
 
+    - name: observe-before-build
+      description: Observation-first constraint for agentic development — verify ground truth before writing code. Integrates with debugging, TDD, parallel agents, and code review.
+      source: https://github.com/Sanmarcsoft/the-library/blob/main/skills/observe-before-build/SKILL.md
+      local: /config/workspace/projects/sanmarcsoft/the-library/skills/observe-before-build/SKILL.md
+      trusted: true
+      tags: [debugging, observation, verification, ground-truth, tdd, agents, first-principles]
+
+    # --- External (trusted: disler) ---
     - name: uv
       description: Guide for using uv, the Python package and project manager
       source: https://github.com/disler/idd-library-engineering/blob/main/.claude/skills/uv/SKILL.md
+      trusted: true
       tags: [python, package-manager, uv, virtualenv, pip-replacement]
 
   agents:
+    # --- External (trusted: disler) ---
     - name: bowser
       description: Headless browser automation agent using Playwright CLI for browsing, UI testing, and scraping
       source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/bowser.md
       requires: [skill:bowser]
+      trusted: true
       tags: [browser, playwright, automation, scraping, testing]
 
     - name: builder
       description: Implementation and code generation
       source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/builder.md
+      trusted: true
       tags: [implementation, code-generation, building, scaffold]
 
     - name: documenter
       description: Documentation and README generation
       source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/documenter.md
+      trusted: true
       tags: [documentation, readme, docs, writing]
 
     - name: plan-reviewer
       description: Plan critic - reviews, challenges, and validates implementation plans
       source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/plan-reviewer.md
+      trusted: true
       tags: [planning, review, validation, architecture]
 
     - name: planner
       description: Architecture and implementation planning
       source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/planner.md
+      trusted: true
       tags: [planning, architecture, design, implementation]
 
     - name: red-team
       description: Security and adversarial testing
       source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/red-team.md
+      trusted: true
       tags: [security, adversarial, testing, pentest, red-team]
 
     - name: reviewer
       description: Code review and quality checks
       source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/reviewer.md
+      trusted: true
       tags: [code-review, quality, review, best-practices]
 
     - name: scout
       description: Fast recon and codebase exploration
       source: https://github.com/disler/pi-vs-claude-code/blob/main/.pi/agents/scout.md
+      trusted: true
       tags: [exploration, recon, codebase, search, discovery]
 
     - name: uv-agent
       description: Python environment and toolchain agent using the Astral stack (uv, ruff, ty)
       source: https://github.com/disler/idd-library-engineering/blob/main/.claude/agents/uv-agent.md
       requires: [skill:uv, skill:ruff, skill:ty]
+      trusted: true
       tags: [python, uv, ruff, ty, toolchain, environment]
 
+    # --- Sanmarcsoft: local agents (source = GitHub, local = filesystem) ---
     - name: devops-workflow-enforcer
       description: Central DevOps gatekeeper enforcing TDD, GitHub issue tracking, project board compliance, feature branch workflow, and deployment gates across all Sanmarcsoft projects — blocks direct commits to main/testing, requires issues with acceptance criteria, enforces dev/testing/production pipeline
-      source: /config/.claude/agents/devops-workflow-enforcer.md
+      source: https://github.com/Sanmarcsoft/the-library/blob/main/agents/devops-workflow-enforcer.md
+      local: /config/.claude/agents/devops-workflow-enforcer.md
+      trusted: true
       tags: [devops, github, issues, feature-branch, tdd, project-board, gatekeeper, pr, deployment, testing, ci-cd, production, branching]
 
     - name: scrum-master
       description: Agile Scrum Master for GitHub project management — scaffolds milestones, creates issues with acceptance criteria, manages labels, generates gh CLI scripts for sprint planning and project board automation
-      source: /config/.claude/agents/scrum-master-agent.md
+      source: https://github.com/Sanmarcsoft/the-library/blob/main/agents/scrum-master-agent.md
+      local: /config/.claude/agents/scrum-master-agent.md
+      trusted: true
       tags: [scrum, agile, sprint, milestone, issues, labels, project-board, planning, github]
 
     - name: github-project-manager
       description: Manages GitHub project board column movements and status synchronization — moves issues between Backlog, Ready, In Progress, In Review, and Done columns via GraphQL
-      source: /config/.claude/agents/github-project-manager.md
+      source: https://github.com/Sanmarcsoft/the-library/blob/main/agents/github-project-manager.md
+      local: /config/.claude/agents/github-project-manager.md
+      trusted: true
       tags: [github, project-board, kanban, status, issues, automation, columns]
 
   prompts:
+    # --- External (trusted: disler) ---
     - name: plan-w-team
       description: Creates a concise engineering implementation plan based on user requirements and saves it to specs directory
       source: https://github.com/disler/idd-library-engineering/blob/main/.claude/commands/plan_w_team.md
+      trusted: true
       tags: [planning, implementation, team, requirements, specs]
 
+    # --- Sanmarcsoft: the-library repo ---
     - name: prime-agent-improvement-tracker
       description: Subagent prompt for analyzing library item usage and generating improvement reports
-      source: https://github.com/smsmatt/the-library/blob/main/skills/prime-agent/improvement-tracker-prompt.md
+      source: https://github.com/Sanmarcsoft/the-library/blob/main/skills/prime-agent/improvement-tracker-prompt.md
+      local: /config/.claude/skills/library/skills/prime-agent/improvement-tracker-prompt.md
       requires: [skill:prime-agent]
+      trusted: true
       tags: [meta, improvement, tracking, library, prime-agent]
 
     - name: prime-agent-library-improver
       description: Subagent prompt for generating and applying patches to library items from improvement reports
-      source: https://github.com/smsmatt/the-library/blob/main/skills/prime-agent/library-improver-prompt.md
+      source: https://github.com/Sanmarcsoft/the-library/blob/main/skills/prime-agent/library-improver-prompt.md
+      local: /config/.claude/skills/library/skills/prime-agent/library-improver-prompt.md
       requires: [skill:prime-agent, prompt:prime-agent-improvement-tracker]
+      trusted: true
       tags: [meta, improvement, patching, library, prime-agent]

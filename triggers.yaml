@@ -386,6 +386,37 @@ intents:
     items: [agent:devops-workflow-enforcer, agent:scrum-master, agent:github-project-manager]
     confidence: high
 
+  # Observation-First Constraint
+  - name: observe-before-build
+    description: Observation-first constraint — verify ground truth before writing code
+    patterns:
+      - 401
+      - 403
+      - unauthorized
+      - forbidden
+      - JWT
+      - token
+      - certificate
+      - SSL
+      - connection refused
+      - connection error
+      - build failed
+      - deploy failed
+      - test failed
+      - service down
+      - service unreachable
+      - timeout
+      - config mismatch
+      - wrong endpoint
+      - wrong URL
+      - debug
+      - diagnose
+      - investigate
+      - root cause
+      - why is this failing
+    items: [skill:observe-before-build]
+    confidence: high
+
   # Library Routing
   - name: library-routing
     description: Library catalog routing, skill discovery, and intent-to-item matching
