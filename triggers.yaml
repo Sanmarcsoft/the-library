@@ -420,3 +420,21 @@ intents:
       - find where
     items: [agent:scout]
     confidence: medium
+
+  # Self-Improvement / Process Failure Detection
+  - name: self-improvement
+    description: Agent's own process is failing — recurring errors, fix-the-fix loops, build failures after merges
+    patterns:
+      - same error again
+      - build failed again
+      - fix the fix
+      - this broke again
+      - another build failure
+      - PR to fix PR
+      - reintroduced
+      - regression
+      - squash merge conflict
+      - lockfile out of sync
+    items:
+      - skill:observe-before-build
+    confidence: high
