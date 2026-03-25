@@ -93,6 +93,22 @@ library:
       source: https://github.com/smsmatt/the-library/blob/main/skills/wolfram/SKILL.md
       tags: [math, computation, wolfram, statistics, plotting, science, calculation, conversion, finance, data-analysis, algebra, calculus]
 
+    - name: design-mathematics
+      description: Classical design proportions (golden ratio, rule of thirds, Pythagorean paths, Modulor, fractal self-similarity, color wheel geometry, musical typographic scales) and information design formulas (recency decay, importance scoring, volume normalization, Shannon entropy, Fitts's Law) for mathematically grounded UI work and verification
+      source: https://github.com/smsmatt/the-library/blob/main/skills/design-mathematics/SKILL.md
+      tags: [design, mathematics, golden-ratio, rule-of-thirds, typography, proportions, fibonacci, modulor, fractal, color-wheel, information-design, entropy, fitts-law, grid, spacing, dashboard]
+
+    - name: proofshot
+      description: Visual verification of UI work — records browser sessions with video proof, screenshots, error capture, visual regression diffing, and PR proof posting via the ProofShot CLI. Use after building or modifying any UI component, page, or visual feature. Integrates with the frontend-design skill suite.
+      source: /config/workspace/projects/proofshot/skills/claude/SKILL.md
+      tags: [visual-verification, ui-testing, screenshots, video-proof, browser, proofshot, visual-regression, diff, pr-proof, frontend, design-verification]
+
+    - name: proofshot-issue-resolution
+      description: Document GitHub issue resolution with visual before/after evidence — captures the broken state, deploys the fix, captures the fixed state, and posts structured proof as a GitHub issue comment before closing. Extends the base proofshot skill for issue-driven workflows.
+      source: https://github.com/Sanmarcsoft/the-library/blob/main/skills/proofshot-issue-resolution/SKILL.md
+      requires: [skill:proofshot]
+      tags: [proofshot, github-issues, visual-evidence, before-after, bug-fix, issue-resolution, screenshots, gh-cli, verification, closing-issues]
+
     - name: uv
       description: Guide for using uv, the Python package and project manager
       source: https://github.com/disler/idd-library-engineering/blob/main/.claude/skills/uv/SKILL.md
