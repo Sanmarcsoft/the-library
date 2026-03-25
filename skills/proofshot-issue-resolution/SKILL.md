@@ -155,30 +155,41 @@ EVIDENCE
 
 GitHub Markdown in issue comments supports image uploads. The easiest agent-friendly method:
 
-**Option A — Repo assets (recommended for private repos):**
-Commit screenshots to a `docs/evidence/` directory in the repo and reference them with raw GitHub URLs:
+**Option A — imgur upload (works for ALL repos, public and private):**
+Upload screenshots to imgur via their anonymous API, then use the public URLs in the comment. GitHub renders these inline for all viewers.
 
-```bash
-mkdir -p docs/evidence
-cp "$BEFORE_DIR/before-bug-state.png" docs/evidence/issue-${ISSUE_NUMBER}-before.png
-cp "$AFTER_DIR/after-fix-state.png" docs/evidence/issue-${ISSUE_NUMBER}-after.png
-git add docs/evidence/
-git commit -m "docs: add resolution evidence for issue #${ISSUE_NUMBER}"
-git push
+```python
+import requests
+
+def upload_to_imgur(filepath, description=""):
+    """Upload image to imgur, return public URL."""
+    with open(filepath, 'rb') as f:
+        resp = requests.post(
+            'https://api.imgur.com/3/image',
+            headers={'Authorization': 'Client-ID 546c25a59c58ad7'},
+            files={'image': f},
+            data={'title': description},
+        )
+    return resp.json()['data']['link'] if resp.ok else None
+
+before_url = upload_to_imgur(f"{BEFORE_DIR}/before-bug-state.png", "Before fix")
+after_url = upload_to_imgur(f"{AFTER_DIR}/after-fix-state.png", "After fix")
 ```
 
 Then reference in the comment:
 ```
-![Before](https://raw.githubusercontent.com/OWNER/REPO/BRANCH/docs/evidence/issue-123-before.png)
-![After](https://raw.githubusercontent.com/OWNER/REPO/BRANCH/docs/evidence/issue-123-after.png)
+![Before](https://i.imgur.com/XXXXX.png)
+![After](https://i.imgur.com/YYYYY.png)
 ```
 
-**Option B — Inline base64 (small images only, <1 MB):**
-```bash
-BEFORE_B64=$(base64 -w0 "$BEFORE_DIR/before-bug-state.png")
-# Use: ![Before](data:image/png;base64,${BEFORE_B64})
-# Note: GitHub may strip data URIs in some contexts. Option A is more reliable.
+> **Why not raw GitHub URLs?** For private repos, `raw.githubusercontent.com` URLs require authentication. GitHub's markdown renderer cannot fetch them, so images appear broken. imgur URLs are public and always render.
+
+**Option B — Repo assets (public repos only):**
+Commit screenshots to `docs/evidence/` and reference with raw GitHub URLs:
 ```
+![Before](https://raw.githubusercontent.com/OWNER/REPO/BRANCH/docs/evidence/issue-123-before.png)
+```
+This only works for **public** repos. For private repos, use Option A.
 
 ### Phase 5: Close the issue with evidence
 
