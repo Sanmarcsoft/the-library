@@ -56,7 +56,7 @@ intents:
       - too generic
       - boring design
       - needs polish
-    items: [skill:frontend-design, skill:design-audit, skill:design-critique, skill:design-polish]
+    items: [skill:frontend-design, skill:design-audit, skill:design-critique, skill:design-polish, skill:proofshot, skill:design-mathematics]
     confidence: high
 
   - name: design-operations
@@ -83,7 +83,7 @@ intents:
       - adapt for mobile
       - responsive breakpoints
       - container query
-    items: [skill:design-animate, skill:design-colorize, skill:design-harden, skill:design-optimize, skill:design-extract, skill:design-adapt]
+    items: [skill:design-animate, skill:design-colorize, skill:design-harden, skill:design-optimize, skill:design-extract, skill:design-adapt, skill:proofshot, skill:design-mathematics]
     confidence: high
 
   # MCP Access (Token Efficiency)
@@ -199,6 +199,14 @@ intents:
       - ARR
       - runway
       - burn rate
+      - prime number
+      - prime dates
+      - combinatorics
+      - permutation
+      - could not interpret
+      - wolfram failed
+      - complex computation
+      - sympy
     items: [skill:wolfram]
     confidence: high
 
@@ -420,6 +428,109 @@ intents:
       - find where
     items: [agent:scout]
     confidence: medium
+
+  # Visual Verification (ProofShot)
+  - name: visual-verification
+    description: Visual verification of UI work — browser recording, screenshots, video proof, visual regression, PR proof posting
+    patterns:
+      - visual verification
+      - verify ui
+      - verify visually
+      - visual proof
+      - video proof
+      - screenshot proof
+      - record browser
+      - browser recording
+      - proofshot
+      - proof shot
+      - visual regression
+      - visual diff
+      - baseline comparison
+      - before and after
+      - looks correct
+      - verify it looks
+      - check the ui
+      - test the ui
+      - verify the page
+      - post proof
+      - attach proof
+      - proof to pr
+      - verify my changes
+      - does it look right
+      - show me proof
+    items: [skill:proofshot]
+    confidence: high
+
+  # Design Mathematics (Classical Proportions + Information Design)
+  - name: design-mathematics
+    description: Classical design proportions, information weighting formulas, mathematical verification criteria for UI
+    patterns:
+      - golden ratio
+      - rule of thirds
+      - typographic scale
+      - type scale
+      - fibonacci
+      - modulor
+      - pythagorean
+      - fractal layout
+      - fractal design
+      - self-similar
+      - color harmony
+      - color wheel
+      - complementary color
+      - triadic
+      - analogous
+      - font icon ratio
+      - icon size
+      - information weight
+      - recency decay
+      - visual weight
+      - shannon entropy
+      - entropy
+      - fitts law
+      - classical proportions
+      - mathematical design
+      - design ratios
+      - grid mathematics
+      - muller-brockmann
+      - proportional system
+      - hide information
+      - progressive disclosure
+      - information hierarchy
+      - attention budget
+      - cognitive load
+      - dashboard layout
+      - information density
+    items: [skill:design-mathematics]
+    confidence: high
+
+  # Agent Governance & RCA
+  - name: agent-governance
+    description: Multi-agent governance, sub-agent spawning, RCA, session memory, professional standards
+    patterns:
+      - sub-agent
+      - spawn agent
+      - meta-agent
+      - governance
+      - root cause
+      - RCA
+      - post-mortem
+      - after-action
+      - failure analysis
+      - incident review
+      - session memory
+      - agent memory
+      - knowledge base
+      - ChromaDB memory
+      - professional standards
+      - coding standards
+      - security pyramid
+      - what agents
+      - which agents
+      - agent hierarchy
+      - agent access
+    items: [skill:agent-governance, agent:devops-workflow-enforcer, agent:scrum-master]
+    confidence: high
 
   # Self-Improvement / Process Failure Detection
   - name: self-improvement

@@ -99,6 +99,44 @@ When working with GitHub sources, prefer `gh api` for accessing single files (e.
 5. Push to remote
 6. The temporary directory is cleaned up automatically
 
+## Trust Policy
+
+The library enforces a trust policy for supply chain security. Only items from trusted GitHub organizations are installed without warning.
+
+**Trusted organizations** are listed in `library.yaml` under `trusted_orgs`:
+```yaml
+trusted_orgs:
+  - Sanmarcsoft
+  - smsmatt
+  - disler
+```
+
+Each catalog entry has a `trusted` field (`true` or `false`). When `/library use` encounters an untrusted source:
+1. **BLOCK** the install and warn the user
+2. Recommend forking the repo into the Sanmarcsoft org
+3. Only proceed if the user explicitly overrides
+
+To add a new trusted org: add it to `trusted_orgs` in `library.yaml` and push.
+
+## Dual-Source (Local-First Resolution)
+
+Each entry can have both `source` (GitHub URL, portable) and `local` (filesystem path, fast):
+
+```yaml
+- name: frontend-design
+  source: https://github.com/Sanmarcsoft/impeccable/blob/main/.claude/skills/frontend-design/SKILL.md
+  local: /config/workspace/projects/sanmarcsoft/impeccable/.claude/skills/frontend-design/SKILL.md
+  trusted: true
+```
+
+**Resolution order:**
+1. Check `local` path — if the file exists, use it (instant, no network)
+2. Check if the GitHub repo is cloned at `<local_workspace>/<repo>/` — if so, use it
+3. Fall back to `source` URL (shallow clone from GitHub)
+4. If the repo is a trusted Sanmarcsoft org repo, offer to clone it locally for future speed
+
+The `local_workspace` field in `library.yaml` sets the root for auto-discovery (default: `/config/workspace/projects/sanmarcsoft`).
+
 ## Typed Dependencies
 
 The `requires` field uses typed references to avoid ambiguity:

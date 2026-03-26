@@ -109,6 +109,11 @@ library:
       requires: [skill:proofshot]
       tags: [proofshot, github-issues, visual-evidence, before-after, bug-fix, issue-resolution, screenshots, gh-cli, verification, closing-issues]
 
+    - name: agent-governance
+      description: Meta-governance framework for multi-agent operations — sub-agent spawn rules, MCP access tiers, mandatory workflows (TDD, GitHub issues, security), RCA process, ChromaDB knowledge persistence
+      source: /config/.claude/skills/library/skills/agent-governance/SKILL.md
+      tags: [governance, meta-agent, sub-agent, spawn, mcp, tdd, github, security, rca, chromadb, knowledge, sessions]
+
     - name: uv
       description: Guide for using uv, the Python package and project manager
       source: https://github.com/disler/idd-library-engineering/blob/main/.claude/skills/uv/SKILL.md

@@ -22,7 +22,31 @@ git pull
 - If multiple matches, show them and ask the user to pick one
 - If no match, tell the user and suggest `/library search`
 
-### 3. Resolve Dependencies
+### 3. Trust Check
+Before fetching, verify the source is trusted:
+
+1. Parse the `source` URL to extract the GitHub org (e.g., `Sanmarcsoft` from `https://github.com/Sanmarcsoft/repo/...`)
+2. Check if the org is in `trusted_orgs` from `library.yaml`
+3. Also check the `trusted` field on the entry itself
+
+**If trusted (`trusted: true` AND org in `trusted_orgs`):** Proceed normally.
+
+**If untrusted:** BLOCK and warn:
+```
+WARNING: This item's source is from an untrusted organization: <org>
+
+Trusted organizations: Sanmarcsoft, smsmatt, disler
+
+To proceed, either:
+1. Fork the source repo into the Sanmarcsoft org and update the source URL
+2. Add the org to trusted_orgs in library.yaml
+
+Do NOT install from untrusted sources without explicit user approval.
+```
+
+If the user explicitly overrides ("install it anyway"), proceed but mark the entry with `trusted: false` in library.yaml as a permanent warning.
+
+### 4. Resolve Dependencies
 If the entry has a `requires` field:
 - For each typed reference (`skill:name`, `agent:name`, `prompt:name`):
   - Look it up in `library.yaml`
@@ -30,17 +54,58 @@ If the entry has a `requires` field:
   - If not found, warn the user: "Dependency <ref> not found in library catalog"
 - Process all dependencies before the requested item
 
-### 4. Determine Target Directory
+### 5. Determine Target Directory
 - Read `default_dirs` from `library.yaml`
 - If user said "global" or "globally" → use the `global` path
 - If user specified a custom path → use that path
 - Otherwise → use the `default` path
 - Select the correct section based on type (skills/agents/prompts)
 
-### 5. Fetch from Source
+### 6. Fetch from Source (Local-First Resolution)
 
-**If source is a local path** (starts with `/` or `~`):
+**Resolution order:** Always try `local` path first, then fall back to `source` URL.
+
+#### Step 6a: Check Local Path
+If the entry has a `local` field:
+- Check if the file exists at the `local` path
+- If it exists: use it as the source (fast, no network needed)
+- If it doesn't exist: fall back to Step 6b
+
+**If source is a local path** (starts with `/` or `~`) and no `local` field:
 - Resolve `~` to the home directory
+- Check if the file exists
+- If it exists: use it
+- If it doesn't exist: check if `source` is a GitHub URL that can be used instead
+
+#### Step 6b: Fetch from GitHub (Fallback)
+**If source is a GitHub URL**:
+- Parse the URL to extract: `org`, `repo`, `branch`, `file_path`
+  - Browser URL pattern: `https://github.com/<org>/<repo>/blob/<branch>/<path>`
+  - Raw URL pattern: `https://raw.githubusercontent.com/<org>/<repo>/<branch>/<path>`
+- Determine the clone URL: `https://github.com/<org>/<repo>.git`
+- Determine the parent directory path within the repo (everything before the filename)
+
+**First, check if the repo is already cloned locally:**
+- Read `local_workspace` from `library.yaml` (default: `/config/workspace/projects/sanmarcsoft`)
+- Check if `<local_workspace>/<repo>/` exists
+- If it does: use the local clone instead of fetching from GitHub
+  - Also offer to set the `local` field: "Found local clone at `<path>`. Want me to add it as the `local` source for faster future access?"
+
+**If no local clone exists, offer to clone:**
+- For trusted Sanmarcsoft org repos: "This repo isn't cloned locally. Want me to clone it to `<local_workspace>/<repo>/`? This enables local-first access for future installs."
+- If user agrees: clone the full repo (not shallow — it's a workspace copy)
+  ```bash
+  git clone https://github.com/<org>/<repo>.git <local_workspace>/<repo>/
+  ```
+  Then use the local clone for this install.
+
+**If user declines or for non-local installs**, do a temporary shallow clone:
+```bash
+tmp_dir=$(mktemp -d)
+git clone --depth 1 --branch <branch> https://github.com/<org>/<repo>.git "$tmp_dir"
+```
+
+#### Step 6c: Copy to Target
 - Get the parent directory of the referenced file
 - For skills: copy the entire parent directory to the target:
   ```bash
@@ -54,40 +119,26 @@ If the entry has a `requires` field:
   ```bash
   cp <prompt_file> <target_directory>/<prompt_name>.md
   ```
-- If the agent or prompt is nested in a subdirectory under the `agents/` or `commands/` directories, copy the subdirectory to the target as well, creating the subdir if it doesn't exist. This is useful because it keeps the agents or commands grouped together.
-
-**If source is a GitHub URL**:
-- Parse the URL to extract: `org`, `repo`, `branch`, `file_path`
-  - Browser URL pattern: `https://github.com/<org>/<repo>/blob/<branch>/<path>`
-  - Raw URL pattern: `https://raw.githubusercontent.com/<org>/<repo>/<branch>/<path>`
-- Determine the clone URL: `https://github.com/<org>/<repo>.git`
-- Determine the parent directory path within the repo (everything before the filename)
-- Clone into a temporary directory:
-  ```bash
-  tmp_dir=$(mktemp -d)
-  git clone --depth 1 --branch <branch> https://github.com/<org>/<repo>.git "$tmp_dir"
-  ```
-- Copy the parent directory of the file to the target:
-  ```bash
-  cp -R "$tmp_dir/<parent_path>/" <target_directory>/<name>/
-  ```
-- Clean up:
-  ```bash
-  rm -rf "$tmp_dir"
-  ```
 
 **If clone fails (private repo)**, try SSH:
-  ```bash
-  git clone --depth 1 --branch <branch> git@github.com:<org>/<repo>.git "$tmp_dir"
-  ```
+```bash
+git clone --depth 1 --branch <branch> git@github.com:<org>/<repo>.git "$tmp_dir"
+```
 
-### 6. Verify Installation
+Clean up temporary directories:
+```bash
+rm -rf "$tmp_dir"
+```
+
+### 7. Verify Installation
 - Confirm the target directory exists
 - Confirm the main file (SKILL.md, AGENT.md, or prompt file) exists in it
 - Report success with the installed path
 
-### 7. Confirm
+### 8. Confirm
 Tell the user:
 - What was installed and where
 - Any dependencies that were also installed
 - If this was a refresh (overwrite), mention that
+- Trust status of the source
+- Whether local or GitHub source was used

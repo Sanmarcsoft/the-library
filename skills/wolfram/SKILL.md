@@ -73,13 +73,38 @@ digraph wolfram {
 }
 ```
 
-## Three Tools, Three Use Cases
+## Four Tools — Three-Tier Fallback Strategy
 
-| Tool | mcp2cli Command | When to Use |
-|------|-----------------|-------------|
-| WolframAlpha | `mcp2cli --mcp wolfram --toon WolframAlpha --input '{"input": "..."}'` | Natural language queries — math, conversions, real-time data, demographics, weather, finance |
-| WolframContext | `mcp2cli --mcp wolfram --toon WolframContext --input '{"query": "..."}'` | Documentation lookup — find the right function BEFORE writing Wolfram code |
-| WolframLanguageEvaluator | `mcp2cli --mcp wolfram --toon WolframLanguageEvaluator --input '{"code": "..."}'` | Programmatic computation — plots, data analysis, symbolic math, custom algorithms |
+When Wolfram Alpha's natural language can't handle a complex query (combinatorics, prime analysis, custom algorithms), agents MUST fall through to code execution rather than giving up.
+
+**Fallback order:**
+1. **WolframAlpha** (natural language) → fastest, handles 80% of queries
+2. **WolframLanguageEvaluator** (Wolfram Language code) → when available via Wolfram MCP
+3. **wolfram_compute** (via Moneypenny MCP) → Python/sympy fallback for complex computation
+4. **Direct Python** → last resort, run locally
+
+| Tool | Access Method | When to Use |
+|------|---------------|-------------|
+| WolframAlpha | `mcp2cli --mcp wolfram --toon WolframAlpha --input '{"input": "..."}'` | Natural language queries — math, conversions, real-time data |
+| WolframContext | `mcp2cli --mcp wolfram --toon WolframContext --input '{"query": "..."}'` | Documentation lookup — find the right function BEFORE writing code |
+| WolframLanguageEvaluator | `mcp2cli --mcp wolfram --toon WolframLanguageEvaluator --input '{"code": "..."}'` | Wolfram Language code — symbolic math, plots, custom algorithms |
+| wolfram_compute | `mcp2cli --mcp moneypenny --toon wolfram-compute '{"description":"...", "code":"..."}'` | Complex computation via Moneypenny — tries Wolfram Alpha first, falls back to Python/sympy |
+
+### When Natural Language Fails
+
+If WolframAlpha returns "could not interpret", **don't give up**. Escalate:
+
+```bash
+# Step 1: Try natural language
+mcp2cli --mcp wolfram --toon WolframAlpha --input '{"input": "prime dates between 2026 and 2126"}'
+# → "could not interpret"
+
+# Step 2: Try Wolfram Language (if available)
+mcp2cli --mcp wolfram --toon WolframLanguageEvaluator --input '{"code": "Count[Select[Range[20260101, 21261231], PrimeQ], True]"}'
+
+# Step 3: Use Moneypenny's wolfram_compute with Python code
+mcp2cli --mcp moneypenny --toon wolfram-compute '{"code": "from sympy import isprime; print(sum(1 for n in range(20260101, 21261232) if isprime(n)))"}'
+```
 
 ## WolframAlpha — Natural Language (Lowest Token Cost)
 
